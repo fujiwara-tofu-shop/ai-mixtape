@@ -1,184 +1,268 @@
 import { stack, note, s } from '@strudel/web';
 
+// All tracks use pure synthesis - no drum samples
+// Matching the original Web Audio vibe with frequency sweeps and noise
+
 // 1. BOOM BAP CLASSIC - 90s Hip Hop
 export function boomBapClassic() {
   return stack(
-    // Dusty drums
-    s('bd ~ sd ~, hh*8')
-      .gain(0.35),
-    // Muted bass
-    note('a1 a1 c2 d2')
-      .s('triangle')
-      .gain(0.3)
-      .lpf(400),
-    // Rhodes-style keys
-    note('<a2,c3,e3> ~ <g2,b2,d3> ~')
+    // Kick - sine with pitch drop (like original)
+    note('c1 ~ ~ ~ c1 ~ c1 ~')
       .s('sine')
-      .gain(0.12)
-      .attack(0.05)
-      .decay(0.3)
-      .sustain(0.2)
-      .room(0.3)
-      .lpf(2000),
-    // Scratchy texture
-    note('~ e4 ~ ~')
-      .s('square')
-      .gain(0.04)
-      .lpf(1500)
-      .decay(0.05)
+      .gain(0.7)
+      .lpf(200)
+      .decay(0.25)
+      .sustain(0),
+    // Snare - noise burst
+    note('~ ~ c4 ~ ~ ~ c4 ~')
+      .s('sawtooth')
+      .gain(0.4)
+      .hpf(1500)
+      .decay(0.15)
       .sustain(0)
+      .crush(6),
+    // Hats - high noise
+    note('g6*8')
+      .s('sawtooth')
+      .gain(0.12)
+      .hpf(8000)
+      .decay(0.04)
+      .sustain(0),
+    // Bass line
+    note('a1 a1 c2 d2')
+      .s('sawtooth')
+      .gain(0.35)
+      .lpf(400)
+      .decay(0.2)
+      .sustain(0.4),
+    // Rhodes chords
+    note('<a2,c3,e3> ~ <g2,b2,d3> ~')
+      .s('triangle')
+      .gain(0.1)
+      .attack(0.05)
+      .decay(0.4)
+      .sustain(0.2)
+      .lpf(2000)
   ).cpm(90).play();
 }
 
 // 2. LOFI NIGHTS - Lofi Chill
 export function lofiNights() {
   return stack(
-    // Soft kick and snare
-    s('bd ~ sd ~')
-      .gain(0.25),
-    // Muted hats
-    s('hh*8')
-      .gain(0.08)
-      .lpf(3000),
-    // Warm piano chords
-    note('<e3,g3,b3> <d3,f3,a3> <c3,e3,g3> <d3,f3,a3>')
+    // Soft kick
+    note('c1 ~ ~ ~ c1 ~ c1 ~')
       .s('sine')
-      .gain(0.1)
-      .attack(0.1)
-      .decay(0.5)
-      .sustain(0.3)
-      .release(1.0)
-      .room(0.5)
-      .lpf(1200),
-    // Subtle bass
-    note('e2 d2 c2 d2')
+      .gain(0.5)
+      .lpf(150)
+      .decay(0.3)
+      .sustain(0),
+    // Muted snare
+    note('~ ~ c3 ~ ~ ~ c3 ~')
       .s('triangle')
-      .gain(0.18)
-      .lpf(350)
+      .gain(0.25)
+      .hpf(800)
+      .lpf(3000)
+      .decay(0.12)
+      .sustain(0),
+    // Soft hats
+    note('e6*8')
+      .s('sawtooth')
+      .gain(0.06)
+      .hpf(6000)
+      .lpf(12000)
+      .decay(0.03)
+      .sustain(0),
+    // Warm piano chords - detuned for lofi
+    note('<e3,g3,b3> <d3,f3,a3> <c3,e3,g3> <d3,f3,a3>')
+      .s('triangle')
+      .gain(0.12)
+      .attack(0.08)
+      .decay(0.6)
+      .sustain(0.25)
+      .lpf(1200)
+      .room(0.4),
+    // Sub bass
+    note('e2 d2 c2 d2')
+      .s('sine')
+      .gain(0.3)
+      .lpf(300)
+      .decay(0.4)
+      .sustain(0.3)
   ).cpm(75).play();
 }
 
 // 3. TRAP HOUSE - Trap
 export function trapHouse() {
   return stack(
-    // 808 kick pattern
-    s('bd ~ ~ bd ~ ~ bd ~')
-      .gain(0.45),
-    // Snare on 2 and 4
-    s('~ ~ ~ ~ sd ~ ~ ~')
-      .gain(0.4),
+    // 808 kick with pitch drop
+    note('g0 ~ ~ g0 ~ ~ g0 ~')
+      .s('sine')
+      .gain(0.8)
+      .lpf(120)
+      .decay(0.4)
+      .sustain(0.1),
+    // Sharp snare
+    note('~ ~ ~ ~ c4 ~ ~ ~')
+      .s('sawtooth')
+      .gain(0.45)
+      .hpf(2000)
+      .decay(0.2)
+      .sustain(0)
+      .crush(8),
     // Rolling hats
-    s('hh*16')
-      .gain(0.12),
+    note('a6*16')
+      .s('sawtooth')
+      .gain(0.1)
+      .hpf(9000)
+      .decay(0.02)
+      .sustain(0),
     // Deep 808 bass
     note('g1 ~ ~ g1 ~ ~ a1 ~')
       .s('sine')
-      .gain(0.5)
-      .lpf(200)
-      .decay(0.6)
-      .sustain(0.3),
+      .gain(0.6)
+      .lpf(180)
+      .decay(0.5)
+      .sustain(0.2),
     // Dark pad
     note('g2,bb2,d3')
       .s('sawtooth')
-      .gain(0.06)
-      .lpf(600)
-      .attack(0.3)
-      .release(1.0)
-      .room(0.4)
+      .gain(0.05)
+      .lpf(500)
+      .attack(0.4)
+      .release(1.2)
   ).cpm(140).play();
 }
 
 // 4. JAZZ CAFE - Jazzy Hip Hop
 export function jazzCafe() {
   return stack(
-    // Brushed drums
-    s('bd ~ sd ~')
-      .gain(0.2),
-    // Ride cymbal swing
-    s('~ hh ~ hh')
-      .gain(0.1)
-      .lpf(6000),
+    // Soft kick
+    note('c1 ~ ~ ~ c1 ~ ~ ~')
+      .s('sine')
+      .gain(0.4)
+      .lpf(120)
+      .decay(0.2)
+      .sustain(0),
+    // Brush snare
+    note('~ ~ c3 ~ ~ ~ c3 ~')
+      .s('triangle')
+      .gain(0.2)
+      .hpf(600)
+      .lpf(4000)
+      .decay(0.1)
+      .sustain(0),
+    // Ride cymbal - metallic
+    note('~ e5 ~ e5 ~ e5 ~ e5')
+      .s('square')
+      .gain(0.06)
+      .hpf(4000)
+      .decay(0.15)
+      .sustain(0),
     // Jazz chords (ii-V-I)
     note('<d3,f3,a3,c4> <g2,b2,d3,f3> <c3,e3,g3,b3> <c3,e3,g3,b3>')
-      .s('sine')
-      .gain(0.12)
-      .attack(0.08)
-      .decay(0.4)
-      .sustain(0.3)
-      .room(0.4)
-      .lpf(2500),
+      .s('triangle')
+      .gain(0.1)
+      .attack(0.06)
+      .decay(0.5)
+      .sustain(0.25)
+      .lpf(2200)
+      .room(0.3),
     // Walking bass
     note('d2 f2 g2 a2 c3 a2 g2 f2')
       .s('triangle')
-      .gain(0.22)
-      .lpf(600),
-    // Sparse piano melody
-    note('~ a4 ~ ~ ~ f4 ~ ~')
-      .s('triangle')
-      .gain(0.08)
-      .decay(0.2)
-      .sustain(0.1)
-      .room(0.5)
+      .gain(0.28)
+      .lpf(500)
+      .decay(0.15)
+      .sustain(0.4)
   ).cpm(85).play();
 }
 
 // 5. DARK DRILL - UK Drill
 export function darkDrill() {
   return stack(
-    // Drill kick pattern
-    s('bd ~ ~ ~ ~ ~ bd ~')
-      .gain(0.4),
-    // Snare hits
-    s('~ ~ sd ~ ~ ~ ~ sd')
-      .gain(0.35),
+    // Drill kick
+    note('c1 ~ ~ ~ ~ ~ c1 ~')
+      .s('sine')
+      .gain(0.7)
+      .lpf(150)
+      .decay(0.3)
+      .sustain(0),
+    // Hard snare
+    note('~ ~ c4 ~ ~ ~ ~ c4')
+      .s('sawtooth')
+      .gain(0.4)
+      .hpf(1800)
+      .decay(0.15)
+      .sustain(0)
+      .crush(7),
     // Triplet hats (drill signature)
-    s('hh*12')
-      .gain(0.15),
+    note('b6*12')
+      .s('sawtooth')
+      .gain(0.12)
+      .hpf(8500)
+      .decay(0.025)
+      .sustain(0),
     // Sliding 808
     note('d#1 ~ ~ d#1 ~ f1 ~ ~')
       .s('sine')
-      .gain(0.5)
-      .lpf(150)
-      .decay(0.5),
+      .gain(0.65)
+      .lpf(140)
+      .decay(0.45)
+      .sustain(0.15),
     // Dark strings
     note('d#3,f#3,a#3')
       .s('sawtooth')
-      .gain(0.05)
-      .lpf(800)
-      .attack(0.5)
+      .gain(0.04)
+      .lpf(700)
+      .attack(0.6)
       .release(2.0)
-      .room(0.6)
   ).cpm(145).play();
 }
 
 // 6. FUNK SOUL BROTHER - Old School Funk
 export function funkSoul() {
   return stack(
-    // Funky drums
-    s('bd ~ sd ~, hh*8')
-      .gain(0.3),
-    // Syncopated claps
-    s('~ ~ ~ cp')
-      .gain(0.15),
+    // Funky kick
+    note('c1 ~ ~ ~ c1 ~ c1 ~')
+      .s('sine')
+      .gain(0.6)
+      .lpf(180)
+      .decay(0.2)
+      .sustain(0),
+    // Snappy snare
+    note('~ ~ c4 ~ ~ ~ c4 ~')
+      .s('sawtooth')
+      .gain(0.35)
+      .hpf(1200)
+      .decay(0.1)
+      .sustain(0),
+    // Hats
+    note('g6*8')
+      .s('sawtooth')
+      .gain(0.1)
+      .hpf(7500)
+      .decay(0.03)
+      .sustain(0),
     // Slap bass
     note('e2 ~ g2 a2 ~ ~ e2 ~')
       .s('sawtooth')
-      .gain(0.25)
-      .lpf(800)
-      .decay(0.15)
-      .sustain(0.2),
+      .gain(0.3)
+      .lpf(700)
+      .decay(0.12)
+      .sustain(0.25),
     // Funky clavinet
     note('e4 ~ ~ e4 ~ g4 ~ ~')
       .s('square')
-      .gain(0.1)
-      .lpf(2000)
-      .decay(0.1)
+      .gain(0.08)
+      .lpf(2200)
+      .decay(0.08)
       .sustain(0),
     // Brass stabs
     note('~ ~ <e4,g4,b4> ~')
       .s('sawtooth')
-      .gain(0.08)
-      .lpf(3000)
+      .gain(0.06)
+      .lpf(2800)
+      .attack(0.02)
       .decay(0.2)
       .sustain(0.1)
   ).cpm(100).play();
@@ -187,39 +271,46 @@ export function funkSoul() {
 // 7. CLOUD WALKING - Cloud Rap
 export function cloudWalking() {
   return stack(
-    // Sparse kick
-    s('bd ~ ~ ~ ~ ~ bd ~')
-      .gain(0.35),
-    // Clap with verb
-    s('~ ~ cp ~')
+    // Sparse deep kick
+    note('c1 ~ ~ ~ ~ ~ c1 ~')
+      .s('sine')
+      .gain(0.55)
+      .lpf(100)
+      .decay(0.5)
+      .sustain(0),
+    // Clap with space
+    note('~ ~ c3 ~')
+      .s('triangle')
       .gain(0.2)
-      .room(0.6)
-      .roomsize(8),
+      .hpf(800)
+      .decay(0.15)
+      .sustain(0)
+      .room(0.6),
     // Dreamy pad
     note('<c3,e3,g3,b3> <a2,c3,e3,g3>')
-      .s('sine')
-      .gain(0.1)
-      .attack(0.8)
-      .release(2.0)
+      .s('triangle')
+      .gain(0.08)
+      .attack(1.0)
+      .release(2.5)
+      .lpf(1400)
       .room(0.7)
-      .roomsize(6)
-      .lpf(1500)
       .slow(2),
     // Ethereal melody
     note('g4 ~ e4 ~ ~ ~ b4 ~')
-      .s('triangle')
-      .gain(0.08)
+      .s('sine')
+      .gain(0.07)
       .delay(0.4)
       .delaytime(0.5)
       .delayfeedback(0.5)
-      .room(0.5)
-      .lpf(2000)
+      .lpf(2200)
       .slow(2),
     // Sub bass
     note('c2 ~ ~ ~ a1 ~ ~ ~')
       .s('sine')
-      .gain(0.3)
-      .lpf(200)
+      .gain(0.4)
+      .lpf(180)
+      .decay(0.6)
+      .sustain(0.2)
       .slow(2)
   ).cpm(70).play();
 }
@@ -227,63 +318,93 @@ export function cloudWalking() {
 // 8. DUSTY CRATES - Boom Bap
 export function dustyCrates() {
   return stack(
-    // Classic boom bap drums
-    s('bd ~ sd ~, hh*8')
-      .gain(0.32),
+    // Classic kick
+    note('c1 ~ ~ ~ c1 ~ c1 ~')
+      .s('sine')
+      .gain(0.6)
+      .lpf(180)
+      .decay(0.25)
+      .sustain(0),
+    // Punchy snare
+    note('~ ~ c4 ~ ~ ~ c4 ~')
+      .s('sawtooth')
+      .gain(0.38)
+      .hpf(1400)
+      .lpf(5000)
+      .decay(0.12)
+      .sustain(0)
+      .crush(10),
+    // Gritty hats
+    note('f6*8')
+      .s('sawtooth')
+      .gain(0.1)
+      .hpf(6500)
+      .decay(0.035)
+      .sustain(0)
+      .crush(12),
     // Gritty bass
     note('a1 a1 c2 d2 a1 a1 e2 d2')
       .s('sawtooth')
-      .gain(0.2)
-      .lpf(350)
-      .crush(12),
-    // Filtered sample-style chop
+      .gain(0.25)
+      .lpf(320)
+      .crush(14),
+    // Sample-style chop
     note('<a3,c4,e4> ~ ~ <g3,b3,d4>')
       .s('square')
-      .gain(0.06)
-      .lpf(1800)
-      .decay(0.15)
-      .sustain(0.1)
-      .crush(10),
-    // Vinyl crackle texture (high noise)
-    s('hh?')
-      .gain(0.02)
-      .lpf(8000)
-      .hpf(4000)
+      .gain(0.05)
+      .lpf(1600)
+      .decay(0.12)
+      .sustain(0.08)
+      .crush(11)
   ).cpm(88).play();
 }
 
 // 9. TRAP SOUL VIBES - Trap Soul
 export function trapSoul() {
   return stack(
-    // Soft trap drums
-    s('bd ~ ~ ~ sd ~ ~ ~')
-      .gain(0.3),
+    // Soft 808 kick
+    note('c1 ~ ~ ~ ~ ~ ~ ~')
+      .s('sine')
+      .gain(0.5)
+      .lpf(130)
+      .decay(0.35)
+      .sustain(0.1),
+    // Gentle snare
+    note('~ ~ ~ ~ c3 ~ ~ ~')
+      .s('triangle')
+      .gain(0.25)
+      .hpf(1200)
+      .decay(0.18)
+      .sustain(0),
     // Subtle hats
-    s('hh*16')
-      .gain(0.08),
+    note('a6*16')
+      .s('sawtooth')
+      .gain(0.06)
+      .hpf(9000)
+      .decay(0.025)
+      .sustain(0),
     // Long 808
     note('f1 ~ ~ ~ ~ ~ ~ ~')
       .s('sine')
-      .gain(0.4)
-      .lpf(150)
-      .decay(1.5)
-      .sustain(0.2),
+      .gain(0.5)
+      .lpf(140)
+      .decay(1.2)
+      .sustain(0.15),
     // R&B keys
     note('<f3,a3,c4> <eb3,g3,bb3> <db3,f3,ab3> <eb3,g3,bb3>')
-      .s('sine')
-      .gain(0.12)
-      .attack(0.15)
-      .decay(0.5)
-      .sustain(0.4)
-      .release(1.0)
-      .room(0.5)
-      .lpf(2000),
-    // Airy vocal-like synth
-    note('~ c5 ~ ~ ~ ab4 ~ ~')
       .s('triangle')
+      .gain(0.1)
+      .attack(0.12)
+      .decay(0.6)
+      .sustain(0.35)
+      .lpf(1800)
+      .room(0.4),
+    // Airy vocal synth
+    note('~ c5 ~ ~ ~ ab4 ~ ~')
+      .s('sine')
       .gain(0.06)
-      .room(0.6)
-      .delay(0.3)
+      .room(0.5)
+      .delay(0.25)
       .delaytime(0.375)
   ).cpm(65).play();
 }
@@ -292,106 +413,142 @@ export function trapSoul() {
 export function phonkDrift() {
   return stack(
     // Heavy kick
-    s('bd ~ bd ~ bd ~ bd ~')
-      .gain(0.45),
-    // Snare
-    s('~ ~ sd ~ ~ ~ sd ~')
-      .gain(0.4),
-    // Cowbell (phonk signature)
-    s('~ hh:3 ~ hh:3 ~ hh:3 ~ hh:3')
-      .gain(0.2)
-      .lpf(4000),
+    note('c1 ~ c1 ~ c1 ~ c1 ~')
+      .s('sine')
+      .gain(0.75)
+      .lpf(160)
+      .decay(0.3)
+      .sustain(0),
+    // Hard snare
+    note('~ ~ c4 ~ ~ ~ c4 ~')
+      .s('sawtooth')
+      .gain(0.45)
+      .hpf(2200)
+      .decay(0.1)
+      .sustain(0)
+      .crush(6),
+    // Cowbell-like (phonk signature)
+    note('~ e5 ~ e5 ~ e5 ~ e5')
+      .s('square')
+      .gain(0.12)
+      .hpf(2000)
+      .lpf(5000)
+      .decay(0.06)
+      .sustain(0),
     // Dark bass
     note('d1 ~ ~ d1 ~ ~ e1 ~')
       .s('sawtooth')
-      .gain(0.35)
-      .lpf(200)
-      .distort(1.5),
+      .gain(0.45)
+      .lpf(180)
+      .distort(1.2),
     // Eerie melody
     note('d4 ~ f4 ~ e4 ~ ~ ~')
       .s('sawtooth')
-      .gain(0.08)
-      .lpf(1500)
-      .decay(0.15)
+      .gain(0.07)
+      .lpf(1400)
+      .decay(0.12)
       .sustain(0)
-      .room(0.3)
   ).cpm(130).play();
 }
 
 // 11. NEO SOUL SUNSET - Neo Soul
 export function neoSoul() {
   return stack(
-    // Laid back drums
-    s('bd ~ sd ~')
-      .gain(0.22),
-    // Ghost notes
-    s('~ hh ~ hh ~ hh ~ hh')
-      .gain(0.08),
+    // Laid back kick
+    note('c1 ~ ~ ~ c1 ~ ~ ~')
+      .s('sine')
+      .gain(0.45)
+      .lpf(140)
+      .decay(0.25)
+      .sustain(0),
+    // Soft snare
+    note('~ ~ c3 ~ ~ ~ c3 ~')
+      .s('triangle')
+      .gain(0.22)
+      .hpf(900)
+      .lpf(4000)
+      .decay(0.1)
+      .sustain(0),
+    // Ghost hats
+    note('~ g6 ~ g6 ~ g6 ~ g6')
+      .s('sawtooth')
+      .gain(0.05)
+      .hpf(8000)
+      .decay(0.03)
+      .sustain(0),
     // Rich chord voicings
     note('<d3,f#3,a3,c4> <c3,e3,g3,b3> <bb2,d3,f3,a3> <a2,c#3,e3,g3>')
-      .s('sine')
-      .gain(0.14)
-      .attack(0.1)
-      .decay(0.5)
-      .sustain(0.4)
-      .release(1.2)
-      .room(0.4)
-      .lpf(2200),
+      .s('triangle')
+      .gain(0.12)
+      .attack(0.08)
+      .decay(0.6)
+      .sustain(0.35)
+      .lpf(2000)
+      .room(0.35),
     // Warm bass
     note('d2 ~ c2 ~ bb1 ~ a1 ~')
-      .s('sine')
-      .gain(0.25)
-      .lpf(500),
-    // Subtle guitar-like arp
-    note('d4 f#4 a4 c5')
       .s('triangle')
-      .fast(2)
-      .gain(0.04)
-      .lpf(1500)
-      .decay(0.1)
-      .sustain(0)
-      .room(0.3)
+      .gain(0.3)
+      .lpf(450)
+      .decay(0.2)
+      .sustain(0.35)
   ).cpm(95).play();
 }
 
 // 12. MIDNIGHT TOFU RUN - Night Drive
 export function midnightRun() {
   return stack(
-    // Driving drums
-    s('bd ~ sd ~, hh*8')
-      .gain(0.3),
+    // Driving kick
+    note('c1 ~ ~ ~ c1 ~ c1 ~')
+      .s('sine')
+      .gain(0.6)
+      .lpf(170)
+      .decay(0.25)
+      .sustain(0),
+    // Snare
+    note('~ ~ c4 ~ ~ ~ c4 ~')
+      .s('sawtooth')
+      .gain(0.32)
+      .hpf(1600)
+      .decay(0.12)
+      .sustain(0),
+    // Hats
+    note('g6*8')
+      .s('sawtooth')
+      .gain(0.1)
+      .hpf(7500)
+      .decay(0.03)
+      .sustain(0),
     // Synthwave bass
     note('e2 e2 g2 a2 e2 e2 b2 a2')
       .s('sawtooth')
-      .gain(0.22)
-      .lpf(400)
-      .decay(0.2)
-      .sustain(0.3),
+      .gain(0.28)
+      .lpf(380)
+      .decay(0.18)
+      .sustain(0.35),
     // Retro pad
     note('e3,g3,b3')
       .s('sawtooth')
-      .gain(0.08)
-      .lpf(1200)
-      .attack(0.3)
-      .release(1.5)
-      .room(0.5),
+      .gain(0.06)
+      .lpf(1100)
+      .attack(0.35)
+      .release(1.8),
     // Lead synth
     note('b4 ~ g4 ~ a4 ~ e4 ~')
       .s('sawtooth')
-      .gain(0.1)
-      .lpf('<2000 2500 3000 2500>')
-      .decay(0.15)
-      .sustain(0.4)
-      .room(0.3)
-      .delay(0.2)
+      .gain(0.09)
+      .lpf(2200)
+      .decay(0.12)
+      .sustain(0.45)
+      .delay(0.15)
       .delaytime(0.25),
     // Arp texture
     note('e4 g4 b4 e5')
       .s('square')
       .fast(4)
-      .gain(0.03)
-      .lpf(1000)
-      .decay(0.05)
+      .gain(0.025)
+      .lpf(900)
+      .decay(0.04)
       .sustain(0)
   ).cpm(82).play();
 }
