@@ -87,23 +87,6 @@
       font-size: 0.9em;
     }
     
-    .play-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: #ffcc00;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-    }
-    
-    .play-btn:hover {
-      transform: scale(1.1);
-    }
-    
     .visualizer {
       height: 60px;
       background: rgba(0,0,0,0.3);
@@ -177,6 +160,11 @@
       color: #555;
       font-size: 0.8em;
     }
+    
+    footer a {
+      color: #ffcc00;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -185,7 +173,7 @@
     <div class="subtitle">藤原ビート VOL.1</div>
     
     <div class="now-playing">
-      <div class="now-playing-title" id="nowTitle">Select a track</div>
+      <div class="now-playing-title" id="nowTitle">Click a track to play</div>
       <div class="now-playing-sub" id="nowSub"></div>
     </div>
     
@@ -200,11 +188,12 @@
     <div id="tracklist"></div>
     
     <footer>
-      100% Procedurally Generated • No Samples • Pure Math<br>
+      100% Procedurally Generated • No Samples • Pure Synthesis<br>
+      Powered by <a href="https://strudel.cc" target="_blank">Strudel.cc</a><br>
       Built by Fujiwara 🚗
     </footer>
   </div>
   
-  <script src="beats.js"></script>
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>
